@@ -11,6 +11,10 @@ inputs:
     description: 'Prefix that is used for the git tag'
     default: ''
     required: false
+  npm-newversion-arg:
+    description: 'The newversion argument should be a valid semver string, a valid second argument to semver.inc (one of patch, minor, major, prepatch, preminor, premajor, prerelease)'
+    default: 'major'
+    required: false
   PACKAGEJSON_DIR:
     description: 'Custom dir to the package'
     default: ''

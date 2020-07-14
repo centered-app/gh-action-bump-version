@@ -21,7 +21,7 @@ Toolkit.run(async tools => {
     return
   }
 
-  let version = 'patch'
+  let version = `${process.env['INPUT_NPM-NEWVERSION-ARG']}` || 'patch'
   if (messages.map(message => message.includes('BREAKING CHANGE') || message.includes('major')).includes(true)) {
     version = 'major'
   } else if (messages.map(
@@ -63,7 +63,6 @@ Toolkit.run(async tools => {
     }
 
     const remoteRepo = `https://${process.env.GITHUB_ACTOR}:${process.env.GITHUB_TOKEN}@github.com/${process.env.GITHUB_REPOSITORY}.git`
-    // console.log(Buffer.from(remoteRepo).toString('base64'))
     await tools.runInWorkspace('git', ['tag', newVersion])
     await tools.runInWorkspace('git', ['push', remoteRepo, '--follow-tags'])
     await tools.runInWorkspace('git', ['push', remoteRepo, '--tags'])
